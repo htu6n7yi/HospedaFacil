@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS hoteis (
+    id UUID PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    cidade VARCHAR(255) NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS hospedes (
+    id UUID PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS reservas (
+    id UUID PRIMARY KEY,
+    hotel_id UUID REFERENCES hoteis(id),
+    hospede_id UUID REFERENCES hospedes(id),
+    data_entrada DATE NOT NULL,
+    data_saida DATE NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
