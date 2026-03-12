@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS hoteis (
     id UUID PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     cidade VARCHAR(255) NOT NULL,
+    quantidade_quartos INTEGER DEFAULT 0,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

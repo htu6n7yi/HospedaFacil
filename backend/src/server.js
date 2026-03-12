@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
+import hoteisRoutes from "./routes/hoteis.js";
 import { autenticar } from "./middlewares/autenticar.js";
 
 const app = express();
@@ -17,11 +18,10 @@ app.get("/health", (req, res) => {
 app.use("/auth", authRoutes);
 
 // ─── Rotas protegidas (exigem JWT válido) ─────────
-// Todas as rotas abaixo passam pelo middleware autenticar
-//rotas ainda nao prontas, criadas para testar a autenticação
-app.use("/quartos",   autenticar /*, quartosRoutes */);
-app.use("/reservas",  autenticar /*, reservasRoutes */);
-app.use("/hospedes",  autenticar /*, hospedesRoutes */);
+app.use("/hoteis",   autenticar, hoteisRoutes);
+app.use("/quartos",  autenticar /*, quartosRoutes */);
+app.use("/reservas", autenticar /*, reservasRoutes */);
+app.use("/hospedes", autenticar /*, hospedesRoutes */);
 
 // ─── Rota de teste protegida ──────────────────────
 app.get("/perfil", autenticar, (req, res) => {
