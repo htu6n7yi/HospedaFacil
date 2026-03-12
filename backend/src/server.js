@@ -1,10 +1,12 @@
 import "dotenv/config";
 import express from "express";
+import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import { autenticar } from "./middlewares/autenticar.js";
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 // ─── Rotas públicas ───────────────────────────────
@@ -17,7 +19,7 @@ app.use("/auth", authRoutes);
 // ─── Rotas protegidas (exigem JWT válido) ─────────
 // Todas as rotas abaixo passam pelo middleware autenticar
 //rotas ainda nao prontas, criadas para testar a autenticação
-app.use("/quartos",    autenticar /*, quartosRoutes */);
+app.use("/quartos",   autenticar /*, quartosRoutes */);
 app.use("/reservas",  autenticar /*, reservasRoutes */);
 app.use("/hospedes",  autenticar /*, hospedesRoutes */);
 
