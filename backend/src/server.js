@@ -1,26 +1,38 @@
+import "dotenv/config";
 import express from "express";
+import authRoutes from "./routes/auth.js";
+import { autenticar } from "./middlewares/autenticar.js";
 
 const app = express();
 
 app.use(express.json());
 
-app.get("/",(req, res) => {
-  res.json({
-  message: "Api Rodando"
-  });
-} )
-
+// ─── Rotas públicas ───────────────────────────────
 app.get("/health", (req, res) => {
-  res.status(200).json({
-    status: "ok",
-    uptime: process.uptime(),
-    timestamp: new Date().toISOString()
+  res.json({ status: "ok", message: "API HospedaFacil funcionando" });
+});
+
+app.use("/auth", authRoutes);
+
+// ─── Rotas protegidas (exigem JWT válido) ─────────
+// Todas as rotas abaixo passam pelo middleware autenticar
+app.use("/quartos",    autenticar /*, quartosRoutes */);
+app.use("/reservas",  autenticar /*, reservasRoutes */);
+app.use("/hospedes",  autenticar /*, hospedesRoutes */);
+
+// ─── Rota de teste protegida ──────────────────────
+app.get("/perfil", autenticar, (req, res) => {
+  res.json({
+    mensagem: "Token válido!",
+    usuario: req.usuario.usuario,
+    tokenExpiraEm: new Date(req.usuario.exp * 1000).toLocaleString("pt-BR"),
   });
 });
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`🏨 HospedaFacil rodando na porta ${PORT}`);
 });
 
 export default app;
