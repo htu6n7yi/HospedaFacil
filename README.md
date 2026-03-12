@@ -1,6 +1,8 @@
 # HospedaFacil
 
-Aplicação fullstack para gerenciamento de hospedagens.
+Aplicação fullstack para gerenciamento de hospedagens, permitindo cadastro de hotéis, hóspedes e reservas.
+
+---
 
 ## 🚀 Tecnologias
 
@@ -26,6 +28,15 @@ Aplicação fullstack para gerenciamento de hospedagens.
 
 ---
 
+## 📚 Documentação
+
+Documentação técnica do projeto:
+
+* [Arquitetura do Sistema](docs/architecture.md)
+* [Modelagem do Banco de Dados](docs/database.md)
+
+---
+
 ## 📁 Estrutura do Projeto
 
 ```
@@ -36,6 +47,10 @@ HospedaFacil
 │
 ├── frontend
 │   └── Aplicação React
+│
+├── docs
+│   ├── architecture.md
+│   └── database.md
 │
 ├── docker-compose.yml
 │
@@ -119,9 +134,11 @@ http://localhost:5173
 
 Projeto em desenvolvimento.
 
-### Estrutura inicial criada:
+### Implementado até o momento
 
-* Backend Node + Express
-* Frontend React + Vite + TypeScript
-* Banco PostgreSQL com Docker Compose
 * Estrutura de projeto fullstack
+* Backend Node.js com Express
+* Frontend React + Vite + TypeScript
+* Banco PostgreSQL via Docker Compose
+* Documentação de arquitetura
+* Modelagem do banco de dados
