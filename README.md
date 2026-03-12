@@ -1,6 +1,6 @@
 # HospedaFacil
 
-Aplicação fullstack para gerenciamento de hospedagens, permitindo cadastro de hotéis, hóspedes e reservas.
+Aplicação **fullstack** para gerenciamento de hospedagens, permitindo cadastro de **hotéis, hóspedes e reservas**, com autenticação de usuários.
 
 ---
 
@@ -8,23 +8,43 @@ Aplicação fullstack para gerenciamento de hospedagens, permitindo cadastro de 
 
 ### Frontend
 
-* React
-* TypeScript
-* Vite
+- React
+- TypeScript
+- Vite
 
 ### Backend
 
-* Node.js
-* Express
+- Node.js
+- Express
+- JWT (JSON Web Token)
 
 ### Banco de Dados
 
-* PostgreSQL
+- PostgreSQL
 
 ### Infraestrutura
 
-* Docker
-* Docker Compose
+- Docker
+- Docker Compose
+
+---
+
+## 🔐 Autenticação
+
+O sistema utiliza **JWT (JSON Web Token)** para autenticação de usuários.
+
+Fluxo de autenticação:
+
+1. O usuário realiza login na aplicação
+2. O backend valida as credenciais
+3. Um **token JWT** é gerado e retornado ao cliente
+4. O frontend envia o token nas requisições autenticadas via header:
+
+```
+Authorization: Bearer <token>
+```
+
+5. O backend valida o token para permitir acesso às rotas protegidas
 
 ---
 
@@ -32,8 +52,8 @@ Aplicação fullstack para gerenciamento de hospedagens, permitindo cadastro de 
 
 Documentação técnica do projeto:
 
-* [Arquitetura do Sistema](docs/architecture.md)
-* [Modelagem do Banco de Dados](docs/database.md)
+- [Arquitetura do Sistema](docs/architecture.md)
+- [Modelagem do Banco de Dados](docs/database.md)
 
 ---
 
@@ -63,8 +83,8 @@ HospedaFacil
 
 Antes de rodar o projeto, instale:
 
-* Node.js
-* Docker
+- Node.js
+- Docker
 
 ---
 
@@ -134,11 +154,13 @@ http://localhost:5173
 
 Projeto em desenvolvimento.
 
-### Implementado até o momento
+### ✅ Implementado até o momento
 
-* Estrutura de projeto fullstack
-* Backend Node.js com Express
-* Frontend React + Vite + TypeScript
-* Banco PostgreSQL via Docker Compose
-* Documentação de arquitetura
-* Modelagem do banco de dados
+- Estrutura de projeto fullstack
+- Backend Node.js com Express
+- Frontend React + Vite + TypeScript
+- Banco PostgreSQL via Docker Compose
+- Autenticação com JWT
+- Rotas protegidas no backend
+- Documentação de arquitetura
+- Modelagem do banco de dados

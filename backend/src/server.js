@@ -16,6 +16,7 @@ app.use("/auth", authRoutes);
 
 // ─── Rotas protegidas (exigem JWT válido) ─────────
 // Todas as rotas abaixo passam pelo middleware autenticar
+//rotas ainda nao prontas, criadas para testar a autenticação
 app.use("/quartos",    autenticar /*, quartosRoutes */);
 app.use("/reservas",  autenticar /*, reservasRoutes */);
 app.use("/hospedes",  autenticar /*, hospedesRoutes */);
