@@ -3,7 +3,7 @@ import hospedeRepository from "../repositories/hospedeRepository.js";
 
 const router = Router();
 
-// GET /hospedes — lista todos os hóspedes com suas reservas
+// GET /hospedes
 router.get("/", async (req, res) => {
   try {
     const hospedes = await hospedeRepository.listarComReservas();
@@ -14,12 +14,12 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET /hospedes/reserva/:reserva_id — busca hóspede de uma reserva específica
-router.get("/reserva/:reserva_id", async (req, res) => {
+// GET /hospedes/reserva/:id
+router.get("/reserva/:id", async (req, res) => {
   try {
-    const hospede = await hospedeRepository.buscarPorReserva(req.params.reserva_id);
+    const hospede = await hospedeRepository.buscarPorReserva(req.params.id);
     if (!hospede) {
-      return res.status(404).json({ mensagem: "Hóspede não encontrado para esta reserva." });
+      return res.status(404).json({ mensagem: "Hóspede não encontrado para essa reserva." });
     }
     res.json(hospede);
   } catch (err) {

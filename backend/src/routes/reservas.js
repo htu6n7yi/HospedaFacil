@@ -18,9 +18,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const reserva = await reservaRepository.buscarPorId(req.params.id);
-    if (!reserva) {
-      return res.status(404).json({ mensagem: "Reserva não encontrada." });
-    }
+    if (!reserva) return res.status(404).json({ mensagem: "Reserva não encontrada." });
     res.json(reserva);
   } catch (err) {
     console.error(err);
@@ -31,35 +29,31 @@ router.get("/:id", async (req, res) => {
 // POST /reservas
 router.post("/", async (req, res) => {
   try {
-    const { hospede_nome, hospede_email, hotel_id, quarto_id, data_entrada, data_saida } = req.body;
+    const {
+      hospede_nome, hospede_email,
+      hospede_tipo_documento, hospede_documento,
+      hotel_id, quarto_id, data_entrada, data_saida,
+    } = req.body;
 
-    if (!hospede_nome || !hospede_email || !hotel_id || !quarto_id || !data_entrada || !data_saida) {
-      return res.status(400).json({
-        mensagem: "hospede_nome, hospede_email, hotel_id, quarto_id, data_entrada e data_saida são obrigatórios.",
-      });
+    if (!hospede_nome || !hospede_email || !hospede_tipo_documento || !hospede_documento ||
+        !hotel_id || !quarto_id || !data_entrada || !data_saida) {
+      return res.status(400).json({ mensagem: "Todos os campos são obrigatórios." });
     }
 
     if (new Date(data_saida) <= new Date(data_entrada)) {
-      return res.status(400).json({
-        mensagem: "A data de saída deve ser posterior à data de entrada.",
-      });
+      return res.status(400).json({ mensagem: "A data de saída deve ser posterior à data de entrada." });
     }
 
     const reserva = await reservaRepository.criar({
-      hospede_nome,
-      hospede_email,
-      hotel_id,
-      quarto_id,
-      data_entrada,
-      data_saida,
+      hospede_nome, hospede_email,
+      hospede_tipo_documento, hospede_documento,
+      hotel_id, quarto_id, data_entrada, data_saida,
     });
 
     res.status(201).json(reserva);
   } catch (err) {
     console.error(err);
-    if (err.message) {
-      return res.status(422).json({ mensagem: err.message });
-    }
+    if (err.message) return res.status(422).json({ mensagem: err.message });
     res.status(500).json({ mensagem: "Erro ao cadastrar reserva." });
   }
 });
@@ -68,23 +62,15 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const { data_entrada, data_saida } = req.body;
-
     if (data_entrada && data_saida && new Date(data_saida) <= new Date(data_entrada)) {
-      return res.status(400).json({
-        mensagem: "A data de saída deve ser posterior à data de entrada.",
-      });
+      return res.status(400).json({ mensagem: "A data de saída deve ser posterior à data de entrada." });
     }
-
     const reserva = await reservaRepository.atualizar(req.params.id, req.body);
-    if (!reserva) {
-      return res.status(404).json({ mensagem: "Reserva não encontrada." });
-    }
+    if (!reserva) return res.status(404).json({ mensagem: "Reserva não encontrada." });
     res.json(reserva);
   } catch (err) {
     console.error(err);
-    if (err.message) {
-      return res.status(422).json({ mensagem: err.message });
-    }
+    if (err.message) return res.status(422).json({ mensagem: err.message });
     res.status(500).json({ mensagem: "Erro ao atualizar reserva." });
   }
 });
@@ -94,17 +80,11 @@ router.patch("/:id/status", async (req, res) => {
   try {
     const { status } = req.body;
     const statusValidos = ["pendente", "confirmada", "cancelada"];
-
     if (!status || !statusValidos.includes(status)) {
-      return res.status(400).json({
-        mensagem: `Status inválido. Use: ${statusValidos.join(", ")}.`,
-      });
+      return res.status(400).json({ mensagem: `Status inválido. Use: ${statusValidos.join(", ")}.` });
     }
-
     const reserva = await reservaRepository.atualizarStatus(req.params.id, status);
-    if (!reserva) {
-      return res.status(404).json({ mensagem: "Reserva não encontrada." });
-    }
+    if (!reserva) return res.status(404).json({ mensagem: "Reserva não encontrada." });
     res.json(reserva);
   } catch (err) {
     console.error(err);
@@ -116,9 +96,7 @@ router.patch("/:id/status", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const deletado = await reservaRepository.deletar(req.params.id);
-    if (!deletado) {
-      return res.status(404).json({ mensagem: "Reserva não encontrada." });
-    }
+    if (!deletado) return res.status(404).json({ mensagem: "Reserva não encontrada." });
     res.status(204).send();
   } catch (err) {
     console.error(err);

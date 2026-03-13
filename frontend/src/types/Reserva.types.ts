@@ -9,6 +9,8 @@ export interface Reserva {
   criado_em: string;
   hospede_nome: string;
   hospede_email: string;
+  hospede_tipo_documento: "cpf" | "passaporte";
+  hospede_documento: string;
   hotel_nome: string;
   hotel_cidade: string;
   quarto_numero: string;
@@ -19,6 +21,8 @@ export interface Reserva {
 export interface ReservaPayload {
   hospede_nome: string;
   hospede_email: string;
+  hospede_tipo_documento: "cpf" | "passaporte";
+  hospede_documento: string;
   hotel_id: string;
   quarto_id: string;
   data_entrada: string;

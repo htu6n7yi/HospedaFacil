@@ -6,13 +6,15 @@ const reservaRepository = {
     const { rows } = await pool.query(`
       SELECT
         r.*,
-        h.nome         AS hospede_nome,
-        h.email        AS hospede_email,
-        ht.nome        AS hotel_nome,
-        ht.cidade      AS hotel_cidade,
-        q.numero       AS quarto_numero,
-        q.tipo         AS quarto_tipo,
-        q.preco_noite  AS quarto_preco_noite
+        h.nome          AS hospede_nome,
+        h.email         AS hospede_email,
+        h.tipo_documento AS hospede_tipo_documento,
+        h.documento     AS hospede_documento,
+        ht.nome         AS hotel_nome,
+        ht.cidade       AS hotel_cidade,
+        q.numero        AS quarto_numero,
+        q.tipo          AS quarto_tipo,
+        q.preco_noite   AS quarto_preco_noite
       FROM reservas r
       JOIN hospedes h  ON h.id  = r.hospede_id
       JOIN hoteis   ht ON ht.id = r.hotel_id
@@ -26,13 +28,15 @@ const reservaRepository = {
     const { rows } = await pool.query(`
       SELECT
         r.*,
-        h.nome         AS hospede_nome,
-        h.email        AS hospede_email,
-        ht.nome        AS hotel_nome,
-        ht.cidade      AS hotel_cidade,
-        q.numero       AS quarto_numero,
-        q.tipo         AS quarto_tipo,
-        q.preco_noite  AS quarto_preco_noite
+        h.nome          AS hospede_nome,
+        h.email         AS hospede_email,
+        h.tipo_documento AS hospede_tipo_documento,
+        h.documento     AS hospede_documento,
+        ht.nome         AS hotel_nome,
+        ht.cidade       AS hotel_cidade,
+        q.numero        AS quarto_numero,
+        q.tipo          AS quarto_tipo,
+        q.preco_noite   AS quarto_preco_noite
       FROM reservas r
       JOIN hospedes h  ON h.id  = r.hospede_id
       JOIN hoteis   ht ON ht.id = r.hotel_id
@@ -42,8 +46,8 @@ const reservaRepository = {
     return rows[0] ?? null;
   },
 
-  async criar({ hospede_nome, hospede_email, hotel_id, quarto_id, data_entrada, data_saida }) {
-    // Verifica se quarto está disponível no período
+  async criar({ hospede_nome, hospede_email, hospede_tipo_documento, hospede_documento, hotel_id, quarto_id, data_entrada, data_saida }) {
+    // Verifica conflito de quarto no período
     const { rows: conflito } = await pool.query(`
       SELECT id FROM reservas
       WHERE quarto_id    = $1
@@ -68,11 +72,21 @@ const reservaRepository = {
       );
 
       if (existing.length > 0) {
-        hospede = existing[0];
+        // Atualiza documento se mudou
+        const { rows: updated } = await client.query(
+          `UPDATE hospedes SET
+            nome           = $1,
+            tipo_documento = $2,
+            documento      = $3
+           WHERE email = $4 RETURNING *`,
+          [hospede_nome, hospede_tipo_documento, hospede_documento, hospede_email]
+        );
+        hospede = updated[0];
       } else {
         const { rows } = await client.query(
-          "INSERT INTO hospedes (id, nome, email) VALUES ($1, $2, $3) RETURNING *",
-          [randomUUID(), hospede_nome, hospede_email]
+          `INSERT INTO hospedes (id, nome, email, tipo_documento, documento)
+           VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+          [randomUUID(), hospede_nome, hospede_email, hospede_tipo_documento, hospede_documento]
         );
         hospede = rows[0];
       }
@@ -89,6 +103,8 @@ const reservaRepository = {
         ...reserva,
         hospede_nome: hospede.nome,
         hospede_email: hospede.email,
+        hospede_tipo_documento: hospede.tipo_documento,
+        hospede_documento: hospede.documento,
       };
     } catch (err) {
       await client.query("ROLLBACK");
@@ -114,16 +130,14 @@ const reservaRepository = {
         data_entrada = COALESCE($3, data_entrada),
         data_saida   = COALESCE($4, data_saida),
         status       = COALESCE($5, status)
-      WHERE id = $6
-      RETURNING *
+      WHERE id = $6 RETURNING *
     `, [hotel_id, quarto_id, data_entrada, data_saida, status, id]);
     return rows[0] ?? null;
   },
 
   async deletar(id) {
     const { rowCount } = await pool.query(
-      "DELETE FROM reservas WHERE id = $1",
-      [id]
+      "DELETE FROM reservas WHERE id = $1", [id]
     );
     return rowCount > 0;
   },
