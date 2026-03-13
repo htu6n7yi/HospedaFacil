@@ -3,7 +3,25 @@ import reservaRepository from "../repositories/reservaRepository.js";
 
 const router = Router();
 
-// GET /reservas
+/**
+ * @swagger
+ * tags:
+ *   name: Reservas
+ *   description: Gerenciamento de reservas
+ */
+
+/**
+ * @swagger
+ * /reservas:
+ *   get:
+ *     summary: Listar todas as reservas
+ *     tags: [Reservas]
+ *     responses:
+ *       200:
+ *         description: Lista de reservas retornada com sucesso
+ *       500:
+ *         description: Erro interno do servidor
+ */
 router.get("/", async (req, res) => {
   try {
     const reservas = await reservaRepository.listar();
@@ -14,7 +32,27 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET /reservas/:id
+/**
+ * @swagger
+ * /reservas/{id}:
+ *   get:
+ *     summary: Buscar reserva por ID
+ *     tags: [Reservas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da reserva
+ *     responses:
+ *       200:
+ *         description: Dados da reserva
+ *       404:
+ *         description: Reserva não encontrada
+ *       500:
+ *         description: Erro interno do servidor
+ */
 router.get("/:id", async (req, res) => {
   try {
     const reserva = await reservaRepository.buscarPorId(req.params.id);
@@ -26,7 +64,64 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// POST /reservas
+/**
+ * @swagger
+ * /reservas:
+ *   post:
+ *     summary: Criar nova reserva
+ *     tags: [Reservas]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - hospede_nome
+ *               - hospede_email
+ *               - hospede_tipo_documento
+ *               - hospede_documento
+ *               - hotel_id
+ *               - quarto_id
+ *               - data_entrada
+ *               - data_saida
+ *             properties:
+ *               hospede_nome:
+ *                 type: string
+ *                 example: Maria Oliveira
+ *               hospede_email:
+ *                 type: string
+ *                 example: maria@email.com
+ *               hospede_tipo_documento:
+ *                 type: string
+ *                 example: CPF
+ *               hospede_documento:
+ *                 type: string
+ *                 example: "123.456.789-00"
+ *               hotel_id:
+ *                 type: integer
+ *                 example: 1
+ *               quarto_id:
+ *                 type: integer
+ *                 example: 5
+ *               data_entrada:
+ *                 type: string
+ *                 format: date
+ *                 example: "2025-07-10"
+ *               data_saida:
+ *                 type: string
+ *                 format: date
+ *                 example: "2025-07-15"
+ *     responses:
+ *       201:
+ *         description: Reserva criada com sucesso
+ *       400:
+ *         description: Campos obrigatórios ausentes ou data_saida anterior à data_entrada
+ *       422:
+ *         description: Quarto indisponível no período ou regra de negócio violada
+ *       500:
+ *         description: Erro interno do servidor
+ */
 router.post("/", async (req, res) => {
   try {
     const {
@@ -49,7 +144,6 @@ router.post("/", async (req, res) => {
       hospede_tipo_documento, hospede_documento,
       hotel_id, quarto_id, data_entrada, data_saida,
     });
-
     res.status(201).json(reserva);
   } catch (err) {
     console.error(err);
@@ -58,7 +152,45 @@ router.post("/", async (req, res) => {
   }
 });
 
-// PUT /reservas/:id
+/**
+ * @swagger
+ * /reservas/{id}:
+ *   put:
+ *     summary: Atualizar dados de uma reserva
+ *     tags: [Reservas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da reserva
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               data_entrada:
+ *                 type: string
+ *                 format: date
+ *               data_saida:
+ *                 type: string
+ *                 format: date
+ *               quarto_id:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Reserva atualizada com sucesso
+ *       400:
+ *         description: data_saida anterior à data_entrada
+ *       404:
+ *         description: Reserva não encontrada
+ *       422:
+ *         description: Regra de negócio violada
+ *       500:
+ *         description: Erro interno do servidor
+ */
 router.put("/:id", async (req, res) => {
   try {
     const { data_entrada, data_saida } = req.body;
@@ -75,7 +207,41 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// PATCH /reservas/:id/status
+/**
+ * @swagger
+ * /reservas/{id}/status:
+ *   patch:
+ *     summary: Atualizar status de uma reserva
+ *     tags: [Reservas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da reserva
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [status]
+ *             properties:
+ *               status:
+ *                 type: string
+ *                 enum: [pendente, confirmada, cancelada]
+ *                 example: confirmada
+ *     responses:
+ *       200:
+ *         description: Status atualizado com sucesso
+ *       400:
+ *         description: Status inválido
+ *       404:
+ *         description: Reserva não encontrada
+ *       500:
+ *         description: Erro interno do servidor
+ */
 router.patch("/:id/status", async (req, res) => {
   try {
     const { status } = req.body;
@@ -92,7 +258,27 @@ router.patch("/:id/status", async (req, res) => {
   }
 });
 
-// DELETE /reservas/:id
+/**
+ * @swagger
+ * /reservas/{id}:
+ *   delete:
+ *     summary: Deletar reserva
+ *     tags: [Reservas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da reserva
+ *     responses:
+ *       204:
+ *         description: Reserva deletada com sucesso
+ *       404:
+ *         description: Reserva não encontrada
+ *       500:
+ *         description: Erro interno do servidor
+ */
 router.delete("/:id", async (req, res) => {
   try {
     const deletado = await reservaRepository.deletar(req.params.id);

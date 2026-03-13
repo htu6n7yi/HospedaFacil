@@ -1,6 +1,8 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./swagger.js";
 import authRoutes from "./routes/auth.js";
 import hoteisRoutes from "./routes/hoteis.js";
 import hospedesRoutes from "./routes/hospedes.js";
@@ -10,15 +12,16 @@ import dashboardRoutes from "./routes/dashboard.js";
 import { autenticar } from "./middlewares/autenticar.js";
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
+
+// ─── Documentação ─────────────────────────────────
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // ─── Rotas públicas ───────────────────────────────
 app.get("/health", (req, res) => {
   res.json({ status: "ok", message: "API HospedaFacil funcionando" });
 });
-
 app.use("/auth", authRoutes);
 
 // ─── Rotas protegidas ─────────────────────────────
@@ -37,7 +40,6 @@ app.get("/perfil", autenticar, (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
   console.log(`🏨 HospedaFacil rodando na porta ${PORT}`);
 });

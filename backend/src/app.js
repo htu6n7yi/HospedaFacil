@@ -1,15 +1,15 @@
 import express from "express";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./swagger.js";
 
-const app = express();
+const app = express(); // ← precisa vir primeiro
 
 app.use(express.json());
 
-// rota de teste
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec)); // ← agora funciona
+
 app.get("/health", (req, res) => {
-  res.json({
-    status: "ok",
-    message: "API funcionando"
-  });
+  res.json({ status: "ok", message: "API funcionando" });
 });
 
 export default app;

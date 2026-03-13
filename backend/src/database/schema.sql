@@ -6,10 +6,14 @@ CREATE TABLE IF NOT EXISTS hoteis (
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TYPE tipo_documento AS ENUM ('cpf', 'passaporte');
+
 CREATE TABLE IF NOT EXISTS hospedes (
     id UUID PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
+    tipo_documento tipo_documento NOT NULL DEFAULT 'cpf',
+    documento VARCHAR(20) NOT NULL DEFAULT '',
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
