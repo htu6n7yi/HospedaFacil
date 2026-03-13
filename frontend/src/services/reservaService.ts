@@ -1,5 +1,5 @@
 import api from "./api";
-import type { Reserva, ReservaPayload, StatusReserva, Quarto } from "@/types/reserva.types";
+import type { Reserva, ReservaPayload, StatusReserva, Quarto } from "@/types/Reserva.types";
 
 const reservaService = {
   async listar(): Promise<Reserva[]> {

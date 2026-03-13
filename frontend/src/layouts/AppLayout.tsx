@@ -8,12 +8,6 @@ import {
   BedDouble,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import authService from "@/services/authService";
@@ -27,7 +21,6 @@ const navItems = [
 
 export default function AppLayout() {
   return (
-    <TooltipProvider delayDuration={200}>
       <div
         className="flex min-h-screen bg-amber-500"
         style={{ fontFamily: "'DM Sans', sans-serif" }}
@@ -145,6 +138,5 @@ export default function AppLayout() {
           <Outlet />
         </main>
       </div>
-    </TooltipProvider>
   );
 }

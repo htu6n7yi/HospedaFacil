@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import reservaService from "@/services/reservaService";
 import hotelService, { type HotelDisponibilidade } from "@/services/hotelService";
-import type { Reserva, ReservaPayload, StatusReserva, Quarto } from "@/types/reserva.types";
+import type { Reserva, ReservaPayload, StatusReserva, Quarto } from "@/types/Reserva.types";
 
 // ─── Validação de CPF ─────────────────────────────
 function validarCPF(cpf: string): boolean {
@@ -146,7 +146,7 @@ export default function Reservas() {
 
   const selecionarHotel = async (hotel: HotelDisponibilidade) => {
     if (!hotel.disponivel) return;
-    setForm((f) => ({ ...f, hotel_id: hotel.id, quarto_id: "" }));
+    setForm((f: any) => ({ ...f, hotel_id: hotel.id, quarto_id: "" }));
     try {
       setCarregandoQuartos(true);
       setQuartos(await reservaService.listarQuartosDisponiveis(hotel.id, form.data_entrada, form.data_saida));
@@ -189,7 +189,7 @@ export default function Reservas() {
   const voltarStep = () => {
     if (step === "datas")  setStep("hospede");
     if (step === "hotel")  setStep("datas");
-    if (step === "quarto") { setStep("hotel"); setForm((f) => ({ ...f, hotel_id: "", quarto_id: "" })); }
+    if (step === "quarto") { setStep("hotel"); setForm((f: any) => ({ ...f, hotel_id: "", quarto_id: "" })); }
   };
 
   const salvar = async () => {
@@ -534,7 +534,7 @@ export default function Reservas() {
                   {quartos.length === 0 ? (
                     <p className="col-span-2 text-sm text-stone-400 text-center py-8">Nenhum quarto disponível.</p>
                   ) : quartos.map((quarto) => (
-                    <button key={quarto.id} onClick={() => setForm((f) => ({ ...f, quarto_id: quarto.id }))}
+                    <button key={quarto.id} onClick={() => setForm((f: any) => ({ ...f, quarto_id: quarto.id }))}
                       className={`text-left rounded-xl border px-3 py-3 transition-all
                         ${form.quarto_id === quarto.id
                           ? "border-orange-400 bg-orange-50 ring-1 ring-orange-400"

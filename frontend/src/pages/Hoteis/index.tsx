@@ -29,9 +29,6 @@ const EMPTY_FORM: HotelPayload = {
   preco_noite_padrao: 0,
 };
 
-const TIPO_LABEL: Record<string, string> = {
-  simples: "Simples", duplo: "Duplo", suite: "Suíte",
-};
 
 export default function Hoteis() {
   const [hoteis, setHoteis] = useState<Hotel[]>([]);
