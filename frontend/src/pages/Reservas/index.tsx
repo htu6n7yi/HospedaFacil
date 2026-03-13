@@ -274,7 +274,7 @@ export default function Reservas() {
           <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
           <Input placeholder="Buscar hóspede..." value={buscaNome}
             onChange={(e) => setBuscaNome(e.target.value)}
-            className="pl-9 w-48 border-stone-200 text-stone-700 placeholder:text-stone-300" />
+            className="pl-9 w-48 h-10 border-stone-200 text-stone-700 placeholder:text-stone-300" />
         </div>
         <select value={filtroStatus} onChange={(e) => setFiltroStatus(e.target.value as StatusReserva | "")}
           className="h-10 px-3 rounded-md border border-stone-200 text-sm text-stone-600 bg-white focus:outline-none focus:ring-2 focus:ring-orange-400">
@@ -284,7 +284,7 @@ export default function Reservas() {
           <option value="cancelada">Cancelada</option>
         </select>
         <Input type="date" value={filtroData} onChange={(e) => setFiltroData(e.target.value)}
-          className="w-44 border-stone-200 text-stone-600" />
+          className="w-44 h-10 border-stone-200 text-stone-600" />
         {(buscaNome || filtroStatus || filtroData) && (
           <Button variant="ghost" onClick={() => { setBuscaNome(""); setFiltroStatus(""); setFiltroData(""); }}
             className="text-stone-400 hover:text-stone-600 text-sm">
@@ -376,7 +376,7 @@ export default function Reservas() {
 
       {/* Modal Nova Reserva */}
       <Dialog open={modalAberto} onOpenChange={setModalAberto}>
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="sm:max-w-lg bg-white">
           <DialogHeader>
             <DialogTitle style={{ fontFamily: "'Playfair Display', serif" }}>Nova Reserva</DialogTitle>
           </DialogHeader>

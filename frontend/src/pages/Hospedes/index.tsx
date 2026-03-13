@@ -129,7 +129,7 @@ export default function Hospedes() {
             placeholder="Buscar por nome..."
             value={buscaNome}
             onChange={(e) => setBuscaNome(e.target.value)}
-            className="pl-9 w-44 border-stone-200 text-stone-700 placeholder:text-stone-300"
+            className="pl-9 h-10 w-44 border-stone-200 text-stone-700 placeholder:text-stone-300"
           />
         </div>
         <div className="relative">
@@ -138,7 +138,7 @@ export default function Hospedes() {
             placeholder="Buscar por documento..."
             value={buscaDocumento}
             onChange={(e) => setBuscaDocumento(e.target.value)}
-            className="pl-9 w-48 border-stone-200 text-stone-700 placeholder:text-stone-300"
+            className="pl-9 w-48 h-10 border-stone-200 text-stone-700 placeholder:text-stone-300"
           />
         </div>
         <select

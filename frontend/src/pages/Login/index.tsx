@@ -41,7 +41,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-amber-100 flex items-center justify-center p-4">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
         .font-display { font-family: 'Playfair Display', serif; }

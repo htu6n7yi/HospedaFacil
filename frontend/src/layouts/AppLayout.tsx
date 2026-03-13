@@ -67,7 +67,7 @@ export default function AppLayout() {
         `}</style>
 
         {/* Sidebar */}
-        <aside className="sidebar-shadow w-60 bg-white flex flex-col fixed top-0 left-0 h-full z-20">
+        <aside className="sidebar-shadow w-60 border border-r-stone-300 bg-white flex flex-col fixed top-0 left-0 h-full z-20">
 
           {/* Logo */}
           <div className="px-5 py-5">
@@ -82,7 +82,7 @@ export default function AppLayout() {
                 >
                   HospedaFacil
                 </span>
-                <span className="text-stone-400 text-[11px]">
+                <span className="text-stone-600 text-[11px]">
                   Gestão Hoteleira
                 </span>
               </div>
@@ -97,17 +97,11 @@ export default function AppLayout() {
               Menu
             </p>
             {navItems.map(({ to, label, icon: Icon }) => (
-              <Tooltip key={to}>
-                <TooltipTrigger asChild>
+              
                   <NavLink to={to} className="nav-link">
                     <Icon size={17} />
                     {label}
                   </NavLink>
-                </TooltipTrigger>
-                <TooltipContent side="right">
-                  <p>{label}</p>
-                </TooltipContent>
-              </Tooltip>
             ))}
           </nav>
 

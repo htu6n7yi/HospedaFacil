@@ -118,18 +118,18 @@ export default function Dashboard() {
 
         <div className="bg-white rounded-xl border border-stone-200 p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest">Hotéis</p>
+            <p className="text-xs font-semibold text-stone-500 uppercase tracking-widest">Hotéis</p>
             <div className="w-8 h-8 rounded-lg bg-orange-50 flex items-center justify-center">
               <Hotel size={16} className="text-orange-500" />
             </div>
           </div>
           <p className="text-3xl font-bold text-stone-800">{cards.total_hoteis}</p>
-          <p className="text-xs text-stone-400 mt-1">cadastrados</p>
+          <p className="text-xs text-stone-500 mt-1">cadastrados</p>
         </div>
 
         <div className="bg-white rounded-xl border border-stone-200 p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest">Quartos</p>
+            <p className="text-xs font-semibold text-stone-600 uppercase tracking-widest">Quartos</p>
             <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
               <BedDouble size={16} className="text-blue-500" />
             </div>
@@ -143,18 +143,18 @@ export default function Dashboard() {
 
         <div className="bg-white rounded-xl border border-stone-200 p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest">Hóspedes</p>
+            <p className="text-xs font-semibold text-stone-600 uppercase tracking-widest">Hóspedes</p>
             <div className="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center">
               <Users size={16} className="text-purple-500" />
             </div>
           </div>
           <p className="text-3xl font-bold text-stone-800">{cards.total_hospedes}</p>
-          <p className="text-xs text-stone-400 mt-1">cadastrados</p>
+          <p className="text-xs text-stone-500 mt-1">cadastrados</p>
         </div>
 
         <div className="bg-white rounded-xl border border-stone-200 p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest">Ocupação</p>
+            <p className="text-xs font-semibold text-stone-600 uppercase tracking-widest">Ocupação</p>
             <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center">
               <TrendingUp size={16} className="text-emerald-500" />
             </div>
@@ -167,46 +167,46 @@ export default function Dashboard() {
 
         <div className="bg-white rounded-xl border border-stone-200 p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest">Pendentes</p>
+            <p className="text-xs font-semibold text-stone-600 uppercase tracking-widest">Pendentes</p>
             <div className="w-8 h-8 rounded-lg bg-yellow-50 flex items-center justify-center">
               <Clock size={16} className="text-yellow-500" />
             </div>
           </div>
           <p className="text-3xl font-bold text-stone-800">{cards.reservas_pendentes}</p>
-          <p className="text-xs text-stone-400 mt-1">reservas aguardando</p>
+          <p className="text-xs text-stone-500 mt-1">reservas aguardando</p>
         </div>
 
         <div className="bg-white rounded-xl border border-stone-200 p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest">Confirmadas</p>
+            <p className="text-xs font-semibold text-stone-600 uppercase tracking-widest">Confirmadas</p>
             <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
               <CheckCircle size={16} className="text-green-500" />
             </div>
           </div>
           <p className="text-3xl font-bold text-stone-800">{cards.reservas_confirmadas}</p>
-          <p className="text-xs text-stone-400 mt-1">reservas ativas</p>
+          <p className="text-xs text-stone-500 mt-1">reservas ativas</p>
         </div>
 
         <div className="bg-white rounded-xl border border-stone-200 p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest">Canceladas</p>
+            <p className="text-xs font-semibold text-stone-600 uppercase tracking-widest">Canceladas</p>
             <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
               <XCircle size={16} className="text-red-400" />
             </div>
           </div>
           <p className="text-3xl font-bold text-stone-800">{cards.reservas_canceladas}</p>
-          <p className="text-xs text-stone-400 mt-1">reservas canceladas</p>
+          <p className="text-xs text-stone-500 mt-1">reservas canceladas</p>
         </div>
 
         <div className="bg-white rounded-xl border border-stone-200 p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest">Esta semana</p>
+            <p className="text-xs font-semibold text-stone-600 uppercase tracking-widest">Esta semana</p>
             <div className="w-8 h-8 rounded-lg bg-orange-50 flex items-center justify-center">
               <CalendarDays size={16} className="text-orange-500" />
             </div>
           </div>
           <p className="text-3xl font-bold text-stone-800">{cards.reservas_semana}</p>
-          <p className="text-xs text-stone-400 mt-1">
+          <p className="text-xs text-stone-500 mt-1">
             check-ins nos próx. 7 dias
             {cards.reservas_hoje > 0 && (
               <span className="ml-1 text-orange-500 font-medium">({cards.reservas_hoje} hoje)</span>
@@ -237,7 +237,7 @@ export default function Dashboard() {
               <div key={r.id} className="flex items-center justify-between px-5 py-3">
                 <div>
                   <p className="text-sm font-medium text-stone-800">{r.hospede_nome}</p>
-                  <p className="text-xs text-stone-400">{r.hotel_nome} · Quarto #{r.quarto_numero}</p>
+                  <p className="text-xs text-stone-500">{r.hotel_nome} · Quarto #{r.quarto_numero}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-xs font-semibold text-stone-600">{formatDate(r.data_entrada)}</p>
@@ -269,7 +269,7 @@ export default function Dashboard() {
               <div key={r.id} className="flex items-center justify-between px-5 py-3">
                 <div>
                   <p className="text-sm font-medium text-stone-800">{r.hospede_nome}</p>
-                  <p className="text-xs text-stone-400">{r.hotel_nome} · Quarto #{r.quarto_numero}</p>
+                  <p className="text-xs text-stone-500">{r.hotel_nome} · Quarto #{r.quarto_numero}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-xs font-semibold text-stone-600">{formatDate(r.data_saida)}</p>
@@ -333,7 +333,7 @@ export default function Dashboard() {
                 <div className="flex items-center justify-between mb-1.5">
                   <div>
                     <p className="text-sm font-medium text-stone-800">{h.nome}</p>
-                    <p className="text-xs text-stone-400">{h.cidade} · {h.ocupados}/{h.total_quartos} quartos</p>
+                    <p className="text-xs text-stone-500">{h.cidade} · {h.ocupados}/{h.total_quartos} quartos</p>
                   </div>
                   <span className={`text-xs font-bold ${h.taxa >= 80 ? "text-red-500" : h.taxa >= 50 ? "text-yellow-500" : "text-green-500"}`}>
                     {h.taxa}%

@@ -225,7 +225,7 @@ export default function Hoteis() {
 
       {/* Modal Criar/Editar */}
       <Dialog open={modalAberto} onOpenChange={setModalAberto}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md bg-white">
           <DialogHeader>
             <DialogTitle style={{ fontFamily: "'Playfair Display', serif" }}>
               {editando ? "Editar Hotel" : "Novo Hotel"}
@@ -233,7 +233,7 @@ export default function Hoteis() {
           </DialogHeader>
 
           <div className="space-y-4 py-2">
-            <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest">
+            <p className="text-xs font-semibold text-stone-600 uppercase tracking-widest">
               Dados do Hotel
             </p>
 
@@ -268,7 +268,7 @@ export default function Hoteis() {
             {/* Campos de quartos só aparecem no cadastro e quando há quartos */}
             {!editando && form.quantidade_quartos > 0 && (
               <>
-                <p className="text-xs font-semibold text-stone-400 uppercase tracking-widest pt-2">
+                <p className="text-xs font-semibold text-stone-600 uppercase tracking-widest pt-2">
                   Quartos (padrão)
                 </p>
                 <p className="text-xs text-stone-400 -mt-2">
