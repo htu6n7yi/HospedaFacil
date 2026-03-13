@@ -1,0 +1,30 @@
+{
+  "name": "hospedafacil",
+  "version": "1.0.0",
+  "description": "Aplicação **fullstack** para gerenciamento de hospedagens, permitindo cadastro de **hotéis, hóspedes e reservas**, com autenticação de usuários.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "dev:back": "npm run dev --prefix backend",
+    "dev:front": "npm run dev --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htu6n7yi/HospedaFacil.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/htu6n7yi/HospedaFacil/issues"
+  },
+  "homepage": "https://github.com/htu6n7yi/HospedaFacil#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

@@ -1,6 +1,6 @@
 # HospedaFacil
 
-Aplicação **fullstack** para gerenciamento de hospedagens, permitindo cadastro de **hotéis, hóspedes e reservas**, com autenticação de usuários.
+Aplicação **fullstack** para gerenciamento de hospedagens, permitindo cadastro de **hotéis, quartos, hóspedes e reservas**, com autenticação de usuários.
 
 ---
 
@@ -72,8 +72,17 @@ HospedaFacil/
 │   │   ├── database/         # Conexão com PostgreSQL
 │   │   ├── middlewares/      # Middleware JWT
 │   │   ├── repositories/     # Queries do banco
+│   │   │   ├── hotelRepository.js
+│   │   │   ├── quartoRepository.js
+│   │   │   ├── hospedeRepository.js
+│   │   │   └── reservaRepository.js
 │   │   ├── routes/           # Rotas da API
-│   │   └── server.js         # Entry point
+│   │   │   ├── auth.js
+│   │   │   ├── hoteis.js
+│   │   │   ├── quartos.js
+│   │   │   ├── hospedes.js
+│   │   │   └── reservas.js
+│   │   └── server.js
 │   └── .env
 │
 ├── frontend/
@@ -81,9 +90,20 @@ HospedaFacil/
 │   │   ├── components/       # Componentes reutilizáveis (PrivateRoute, shadcn/ui)
 │   │   ├── layouts/          # AppLayout com sidebar
 │   │   ├── pages/            # Páginas da aplicação
+│   │   │   ├── Login/
+│   │   │   ├── Dashboard/
+│   │   │   ├── Hoteis/
+│   │   │   ├── Hospedes/
+│   │   │   └── Reservas/
 │   │   ├── routes/           # Configuração de rotas
 │   │   ├── services/         # Comunicação com a API
+│   │   │   ├── api.ts
+│   │   │   ├── authService.ts
+│   │   │   ├── hotelService.ts
+│   │   │   └── reservaService.ts
 │   │   └── types/            # Tipos TypeScript
+│   │       ├── hotel.types.ts
+│   │       └── reserva.types.ts
 │   └── .env
 │
 ├── docs/
@@ -137,41 +157,78 @@ PORT=3000
 
 ---
 
-## ▶️ Rodando o Backend
+## ▶️ Rodando o Projeto
+
+Na raiz do projeto:
 
 ```bash
-cd backend
-npm install
 npm run dev
 ```
 
-Servidor disponível em: `http://localhost:3000`
+Isso sobe o **backend** e o **frontend** simultaneamente via `concurrently`.
 
-### Rotas disponíveis
+Ou separadamente:
 
-| Método | Rota        | Proteção | Descrição           |
-| ------ | ----------- | -------- | ------------------- |
-| GET    | /health     | Pública  | Status da API       |
-| POST   | /auth/login | Pública  | Login do usuário    |
-| GET    | /hoteis     | JWT      | Listar hotéis       |
-| GET    | /hoteis/:id | JWT      | Buscar hotel por ID |
-| POST   | /hoteis     | JWT      | Cadastrar hotel     |
-| PUT    | /hoteis/:id | JWT      | Atualizar hotel     |
-| DELETE | /hoteis/:id | JWT      | Remover hotel       |
+```bash
+npm run dev:back   # http://localhost:3000
+npm run dev:front  # http://localhost:5173
+```
 
 ---
 
-## 💻 Rodando o Frontend
+## 🔌 Rotas da API
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+### Autenticação
 
-Aplicação disponível em: `http://localhost:5173`
+| Método | Rota        | Proteção | Descrição        |
+| ------ | ----------- | -------- | ---------------- |
+| POST   | /auth/login | Pública  | Login do usuário |
+| GET    | /perfil     | JWT      | Valida token     |
+| GET    | /health     | Pública  | Status da API    |
 
-### Páginas disponíveis
+### Hotéis
+
+| Método | Rota                    | Proteção | Descrição                           |
+| ------ | ----------------------- | -------- | ----------------------------------- |
+| GET    | /hoteis                 | JWT      | Listar hotéis                       |
+| GET    | /hoteis/:id             | JWT      | Buscar hotel por ID                 |
+| GET    | /hoteis/disponibilidade | JWT      | Hotéis disponíveis por período      |
+| POST   | /hoteis                 | JWT      | Cadastrar hotel (cria quartos auto) |
+| PUT    | /hoteis/:id             | JWT      | Atualizar hotel                     |
+| DELETE | /hoteis/:id             | JWT      | Remover hotel                       |
+
+### Quartos
+
+| Método | Rota                 | Proteção | Descrição                       |
+| ------ | -------------------- | -------- | ------------------------------- |
+| GET    | /quartos             | JWT      | Listar quartos por hotel        |
+| GET    | /quartos/disponiveis | JWT      | Quartos disponíveis por período |
+| GET    | /quartos/:id         | JWT      | Buscar quarto por ID            |
+| POST   | /quartos             | JWT      | Cadastrar quarto                |
+| PUT    | /quartos/:id         | JWT      | Atualizar quarto                |
+| DELETE | /quartos/:id         | JWT      | Remover quarto                  |
+
+### Hóspedes
+
+| Método | Rota                  | Proteção | Descrição           |
+| ------ | --------------------- | -------- | ------------------- |
+| GET    | /hospedes             | JWT      | Listar hóspedes     |
+| GET    | /hospedes/reserva/:id | JWT      | Hóspede por reserva |
+
+### Reservas
+
+| Método | Rota                 | Proteção | Descrição             |
+| ------ | -------------------- | -------- | --------------------- |
+| GET    | /reservas            | JWT      | Listar reservas       |
+| GET    | /reservas/:id        | JWT      | Buscar reserva por ID |
+| POST   | /reservas            | JWT      | Cadastrar reserva     |
+| PUT    | /reservas/:id        | JWT      | Atualizar reserva     |
+| PATCH  | /reservas/:id/status | JWT      | Atualizar status      |
+| DELETE | /reservas/:id        | JWT      | Remover reserva       |
+
+---
+
+## 💻 Páginas do Frontend
 
 | Rota       | Proteção | Descrição                     |
 | ---------- | -------- | ----------------------------- |
@@ -186,9 +243,16 @@ Aplicação disponível em: `http://localhost:5173`
 ## 🗄️ Modelagem do Banco
 
 ```sql
-hoteis       (id, nome, cidade, quantidade_quartos, criado_em)
-hospedes     (id, nome, email, criado_em)
-reservas     (id, hotel_id, hospede_id, data_entrada, data_saida, criado_em)
+hoteis   (id UUID, nome, cidade, quantidade_quartos, criado_em)
+
+quartos  (id UUID, hotel_id → hoteis, numero, tipo ENUM(simples,duplo,suite),
+          preco_noite, criado_em)
+
+hospedes (id UUID, nome, email UNIQUE, criado_em)
+
+reservas (id UUID, hotel_id → hoteis, quarto_id → quartos,
+          hospede_id → hospedes, data_entrada, data_saida,
+          status ENUM(pendente,confirmada,cancelada), criado_em)
 ```
 
 ---
@@ -203,14 +267,19 @@ Projeto em desenvolvimento.
 - Autenticação JWT (login, token, logout)
 - Rotas protegidas no backend e frontend
 - Sidebar de navegação com shadcn/ui
-- CRUD completo de hotéis (backend + frontend)
-- Listagem com busca em tempo real
+- CRUD completo de hotéis com criação automática de quartos
+- CRUD completo de quartos (número, tipo, preço por noite)
+- CRUD completo de reservas com validação de disponibilidade
+- Fluxo de reserva em 4 steps com cards de hotel e quarto
+- Verificação de disponibilidade em tempo real por período
+- Hóspede criado/reutilizado automaticamente pelo e-mail
+- Controle de status de reserva (pendente, confirmada, cancelada)
+- Listagem de hóspedes vinculada às reservas
 - Notificações com Sonner
 - Banco PostgreSQL via Docker
+- `npm run dev` na raiz sobe front e back simultaneamente
 
 ### 🔜 Em desenvolvimento
 
-- CRUD de hóspedes
-- CRUD de reservas
 - Dashboard com métricas
 - Documentação Swagger

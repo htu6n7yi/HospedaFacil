@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth.js";
 import hoteisRoutes from "./routes/hoteis.js";
 import hospedesRoutes from "./routes/hospedes.js";
 import reservasRoutes from "./routes/reservas.js";
+import quartosRoutes from "./routes/quartos.js";
 import { autenticar } from "./middlewares/autenticar.js";
 
 const app = express();
@@ -23,7 +24,7 @@ app.use("/auth", authRoutes);
 app.use("/hoteis",   autenticar, hoteisRoutes);
 app.use("/hospedes", autenticar, hospedesRoutes);
 app.use("/reservas", autenticar, reservasRoutes);
-app.use("/quartos",  autenticar /*, quartosRoutes */);
+app.use("/quartos",  autenticar, quartosRoutes);
 
 // ─── Rota de teste protegida ──────────────────────
 app.get("/perfil", autenticar, (req, res) => {

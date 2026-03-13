@@ -28,14 +28,14 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// POST /reservas — cria hóspede + reserva juntos
+// POST /reservas
 router.post("/", async (req, res) => {
   try {
-    const { hospede_nome, hospede_email, hotel_id, data_entrada, data_saida } = req.body;
+    const { hospede_nome, hospede_email, hotel_id, quarto_id, data_entrada, data_saida } = req.body;
 
-    if (!hospede_nome || !hospede_email || !hotel_id || !data_entrada || !data_saida) {
+    if (!hospede_nome || !hospede_email || !hotel_id || !quarto_id || !data_entrada || !data_saida) {
       return res.status(400).json({
-        mensagem: "hospede_nome, hospede_email, hotel_id, data_entrada e data_saida são obrigatórios.",
+        mensagem: "hospede_nome, hospede_email, hotel_id, quarto_id, data_entrada e data_saida são obrigatórios.",
       });
     }
 
@@ -49,6 +49,7 @@ router.post("/", async (req, res) => {
       hospede_nome,
       hospede_email,
       hotel_id,
+      quarto_id,
       data_entrada,
       data_saida,
     });
