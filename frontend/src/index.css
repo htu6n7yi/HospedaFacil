@@ -2,28 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 20 14.3% 4.1%;
-    --border: 20 5.9% 90%;
-    --input: 20 5.9% 90%;
-    --ring: 24.6 95% 53.8%;
-    --radius: 0.5rem;
-    --muted: 60 4.8% 95.9%;
-    --muted-foreground: 25 5.3% 44.7%;
-    --accent: 60 4.8% 95.9%;
-    --accent-foreground: 24 9.8% 10%;
-    --primary: 24.6 95% 53.8%;
-    --primary-foreground: 60 9.1% 97.8%;
-  }
+body {
+  background-color: transparent;
+}
 
-  * {
-    border-color: hsl(var(--border));
-  }
+.card-shadow {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
 
-  body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-  }
+.shadow-sm {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
+}
+
+.border-stone-200 {
+  border-color: #d6cfc7 !important;
 }

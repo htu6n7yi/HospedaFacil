@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Plus, Trash2, Search, CalendarDays, ChevronDown, Loader2, MapPin, BedDouble, Check } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -86,6 +87,8 @@ export default function Reservas() {
   const [filtroStatus, setFiltroStatus] = useState<StatusReserva | "">("");
   const [filtroData, setFiltroData] = useState("");
 
+  const location = useLocation();
+
   const [modalAberto, setModalAberto] = useState(false);
   const [step, setStep] = useState<Step>("hospede");
   const [form, setForm] = useState<ReservaPayload>(EMPTY_FORM);
@@ -112,6 +115,23 @@ export default function Reservas() {
   };
 
   useEffect(() => { carregarDados(); }, []);
+
+  // Pré-preenche hóspede se veio da tela de hóspedes
+  useEffect(() => {
+    const state = location.state as Partial<ReservaPayload> | null;
+    if (state?.hospede_nome) {
+      setForm({
+        ...EMPTY_FORM,
+        hospede_nome: state.hospede_nome ?? "",
+        hospede_email: state.hospede_email ?? "",
+        hospede_tipo_documento: state.hospede_tipo_documento ?? "cpf",
+        hospede_documento: state.hospede_documento ?? "",
+      });
+      setStep("datas");
+      setModalAberto(true);
+      window.history.replaceState({}, "");
+    }
+  }, [location.state]);
 
   const buscarHoteis = async () => {
     try {

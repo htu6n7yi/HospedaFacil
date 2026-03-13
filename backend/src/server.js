@@ -6,6 +6,7 @@ import hoteisRoutes from "./routes/hoteis.js";
 import hospedesRoutes from "./routes/hospedes.js";
 import reservasRoutes from "./routes/reservas.js";
 import quartosRoutes from "./routes/quartos.js";
+import dashboardRoutes from "./routes/dashboard.js";
 import { autenticar } from "./middlewares/autenticar.js";
 
 const app = express();
@@ -20,13 +21,13 @@ app.get("/health", (req, res) => {
 
 app.use("/auth", authRoutes);
 
-// ─── Rotas protegidas (exigem JWT válido) ─────────
-app.use("/hoteis",   autenticar, hoteisRoutes);
-app.use("/hospedes", autenticar, hospedesRoutes);
-app.use("/reservas", autenticar, reservasRoutes);
-app.use("/quartos",  autenticar, quartosRoutes);
+// ─── Rotas protegidas ─────────────────────────────
+app.use("/dashboard", autenticar, dashboardRoutes);
+app.use("/hoteis",    autenticar, hoteisRoutes);
+app.use("/hospedes",  autenticar, hospedesRoutes);
+app.use("/reservas",  autenticar, reservasRoutes);
+app.use("/quartos",   autenticar, quartosRoutes);
 
-// ─── Rota de teste protegida ──────────────────────
 app.get("/perfil", autenticar, (req, res) => {
   res.json({
     mensagem: "Token válido!",

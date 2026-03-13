@@ -29,7 +29,7 @@ export default function AppLayout() {
   return (
     <TooltipProvider delayDuration={200}>
       <div
-        className="flex min-h-screen bg-stone-100"
+        className="flex min-h-screen bg-amber-500"
         style={{ fontFamily: "'DM Sans', sans-serif" }}
       >
         <style>{`
@@ -147,7 +147,7 @@ export default function AppLayout() {
         </aside>
 
         {/* Conteúdo principal */}
-        <main className="flex-1 ml-60 min-h-screen">
+        <main className="flex-1 ml-60 min-h-screen bg-amber-50">
           <Outlet />
         </main>
       </div>
