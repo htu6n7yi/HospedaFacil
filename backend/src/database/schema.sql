@@ -13,11 +13,14 @@ CREATE TABLE IF NOT EXISTS hospedes (
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TYPE status_reserva AS ENUM ('pendente', 'confirmada', 'cancelada');
+
 CREATE TABLE IF NOT EXISTS reservas (
     id UUID PRIMARY KEY,
     hotel_id UUID REFERENCES hoteis(id),
     hospede_id UUID REFERENCES hospedes(id),
     data_entrada DATE NOT NULL,
     data_saida DATE NOT NULL,
+    status status_reserva NOT NULL DEFAULT 'pendente',
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

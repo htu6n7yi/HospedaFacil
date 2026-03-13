@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import hoteisRoutes from "./routes/hoteis.js";
+import hospedesRoutes from "./routes/hospedes.js";
+import reservasRoutes from "./routes/reservas.js";
 import { autenticar } from "./middlewares/autenticar.js";
 
 const app = express();
@@ -19,9 +21,9 @@ app.use("/auth", authRoutes);
 
 // ─── Rotas protegidas (exigem JWT válido) ─────────
 app.use("/hoteis",   autenticar, hoteisRoutes);
+app.use("/hospedes", autenticar, hospedesRoutes);
+app.use("/reservas", autenticar, reservasRoutes);
 app.use("/quartos",  autenticar /*, quartosRoutes */);
-app.use("/reservas", autenticar /*, reservasRoutes */);
-app.use("/hospedes", autenticar /*, hospedesRoutes */);
 
 // ─── Rota de teste protegida ──────────────────────
 app.get("/perfil", autenticar, (req, res) => {
